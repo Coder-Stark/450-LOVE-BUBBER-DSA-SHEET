@@ -981,7 +981,75 @@ output
 */
 
 
-//112. FIND PIVOT ELEMENT OF 2 SORTED ARRAYS
+//112. FIND PIVOT ELEMENT OF 2 SORTED ARRAYS                                                         
+//copied
+#include <iostream>
+using namespace std;
+
+// O(n) solution - Linear Search
+int findPivotLinear(int array[], int n) {
+    int pivot = -1;
+
+    if (array != nullptr && n > 0) {
+        pivot = 0;
+        for (int i = 0; i < n - 1; i++) {
+            if (array[i] > array[i + 1]) {
+                pivot = i + 1;
+                break;
+            }
+        }
+    }
+    return pivot;
+}
+
+// O(log n) solution - Binary Search
+int findPivotBinarySearch(int array[], int n) {
+    if (array == nullptr || n == 0) {
+        return -1;
+    }
+
+    // Case when array is not rotated. Then first index is the pivot
+    if (n == 1 || array[0] < array[n - 1]) {
+        return 0;
+    }
+
+    int start = 0, end = n - 1;
+
+    while (start <= end) {
+        int mid = (start + end) / 2;
+        // check if mid+1 is pivot
+        if (mid < n - 1 && array[mid] > array[mid + 1]) {
+            return (mid + 1);
+        } else if (array[start] <= array[mid]) {
+            // If array[start] <= array[mid],
+            // it means from start to mid, all elements are in sorted order,
+            // so pivot will be in second half
+            start = mid + 1;
+        } else {
+            // else pivot lies in the first half, so we find the pivot in the first half
+            end = mid - 1;
+        }
+    }
+
+    return 0;
+}
+
+int main() {
+    int array[] = {5, 4};
+    int n = sizeof(array) / sizeof(array[0]);
+    findPivotBinarySearchTest(array, n);
+    return 0;
+}
+
+void findPivotLinearTest(int array[], int n) {
+    int index = findPivotLinear(array, n);
+    cout << "Pivot " << (index >= 0 ? ("found at index " + to_string(index)) : "not found!") << endl;
+}
+
+void findPivotBinarySearchTest(int array[], int n) {
+    int index = findPivotBinarySearch(array, n);
+    cout << "Pivot " << (index >= 0 ? ("found at index " + to_string(index)) : "not found!") << endl;
+}
 
 
 
