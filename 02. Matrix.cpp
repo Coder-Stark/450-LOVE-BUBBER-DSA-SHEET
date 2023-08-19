@@ -97,7 +97,7 @@ Output: true
 */
 
 
-//39. MEDIAN IN A ROW WISE SORTED MATRIX
+//39. MEDIAN IN A ROW WISE SORTED MATRIX                                O(R * LOGC* LOG(maxi - mini)), S.C = O(1)
 #include<bits/stdc++.h>
 using namespace std;
 
