@@ -114,10 +114,11 @@ class Solution{
             return 0;               //height is 0
         }
         
+        //LRN
         int left = height(node->left);
         int right = height(node->right);
         
-        int ans = max(left, right) + 1;
+        int ans = max(left, right) + 1;                     //1 = rootnode
         
         return ans;
     }
@@ -144,6 +145,7 @@ class Solution {
             return p;                      //diameter = height = 0
         }
         
+        //LRN
         pair<int,int>left = diameterFast(root->left);
         pair<int,int>right = diameterFast(root->right);
         
@@ -180,6 +182,7 @@ class Solution {
             return;
         }
         
+        //LRN
         mirror(node->left);
         mirror(node->right);
         
@@ -204,7 +207,53 @@ The inroder traversal of mirror is
 30 10 60 20 40.
 */
 
-//205b. MIRROR OF A GIVEN NODE
+
+//205b. MIRROR OF A GIVEN NODE                                                 {T.C = O(N), S.C = O(N)}
+class Solution
+{
+public:
+    int solve(Node* originalNode, Node* mirrorNode, int target){
+        //base case
+        if(originalNode == NULL || mirrorNode == NULL){
+            return -1;
+        }
+        if(originalNode->data == target){
+            return mirrorNode->data;
+        }
+        
+        //LRN
+        int mirrorLeft = solve(originalNode->left, mirrorNode->right, target);
+        int mirrorRight = solve(originalNode->right, mirrorNode->left, target);
+        
+        if(mirrorLeft != -1){
+            return mirrorLeft;
+        }
+        else{
+            return mirrorRight;
+        }
+    }
+    int findMirror(Node *root, int target)
+    {
+        return solve(root, root, target);              //root = original, root = mirror
+    }
+};
+/*
+Input: 
+          1        
+        /   \       
+       2     3     
+      / \   / \    
+     4   5 6   7   
+and target = 4
+Output: 7
+Explanation: You can see below that the mirror 
+node of 4 is 7.
+          1       |       1
+        /   \     |     /   \
+       2     3    |    3     2
+      / \   / \   |   / \   / \
+     4   5 6   7  |  7   6 5   4
+*/
 
 
 //206. INORDER TRAVERSAL
@@ -559,7 +608,6 @@ Output: 40 20 60 30
 //213. ZIG ZAG TREE TRAVERSAL                                                                                {T.C = O(N), S.C = O(N)}
 class Solution{
     public:
-    //Function to store the zig zag order traversal of tree in a list.
     vector <int> zigZagTraversal(Node* root)
     {
     	vector<int>result;
@@ -668,8 +716,8 @@ which is greater than 1. Hence unbalanced
 //215. DIAGONAL TRAVERSAL OF BINARY TREE                                                               {T.C = O(N), S.C = O(N)}
 vector<int> diagonal(Node *root)
 {
-    queue<Node*>q;
     vector<int>ans;
+    queue<Node*>q;
     
     //base case
     if(root == NULL){
@@ -793,7 +841,59 @@ Output: 1 2 4 8 9 6 7 3
 */
 
 
-//217. CONSTRUCT BINARY TREE FROM STRING WITH BRACKET REPRESENTATION
+//217. CONSTRUCT BINARY TREE FROM STRING WITH BRACKET REPRESENTATION             {T.C = O(N), S.C = O(N)}
+class Solution{
+public:
+    int i = 0;
+    void solve(Node* root, string &s){
+        if(i < s.size() && isdigit(s[i])){
+            int sum = 0;
+            while(i < s.size() && isdigit(s[i])){
+                sum = sum*10 + s[i] - '0';
+                i++;
+            }
+            root->data = sum;
+        }
+        if(i < s.size() && s[i] == '('){                                      //first '('
+            root->left = new Node(0);
+            i++;
+            solve(root->left, s);
+            
+            if(root->left->data == 0){
+                root->left = 0;
+            }
+        }
+        if(i < s.size() && s[i] == '('){                                    //second '('
+            root->right = new Node(0);
+            i++;
+            solve(root->right, s);
+            
+            if(root->right->data == 0){
+                root->right = 0;
+            }
+        }
+        if(i >= s.size() || s[i] == ')'){
+            i++;
+            return;
+        }
+    }
+    Node *treeFromString(string s){
+        Node* root = new Node(0);
+        solve(root, s);
+        return root;
+    }
+};
+/*
+Input: "1(2)(3)" 
+Output: 2 1 3
+Explanation:
+           1
+          / \
+         2   3
+Explanation: first pair of parenthesis contains 
+left subtree and second one contains the right 
+subtree. Inorder of above tree is "2 1 3".
+*/
 
 
 //218. CONVERT BINARY TREE INTO DOUBLY LINKED LIST                                                     {T.C = O(N), S.C = O(H)}
@@ -1772,3 +1872,6 @@ T1    1     T2:    1
   4                     4
 Output: Yes
 */
+
+
+/*-------------------------------------------------   THE END ----------------------------------------------------------*/
