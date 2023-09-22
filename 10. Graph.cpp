@@ -2367,8 +2367,8 @@ class Solution{
         {
             vector <vector <vector<int>>> adj(n+1);
             for(auto i:edges){
-                adj[i[0]].push_back({i[1],0});
-                adj[i[1]].push_back({i[0],1});
+                adj[i[0]].push_back({i[1],0});                              //0 forward traversal
+                adj[i[1]].push_back({i[0],1});                              //1 reverse traversal
             }
             //apply dijkstra's algo
             priority_queue <pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
@@ -2431,7 +2431,12 @@ An Eulerian path is a path in a graph that visits every edge exactly once. It do
 */
 
 
-//316. CHINESE POSTMAN OR ROUTE INSPECTION / EULER CIRCUIT AND PATH                                                   {T.C = O(V), S.C = O(1)}
+//316. CHINESE POSTMAN OR ROUTE INSPECTION / EULER CIRCUIT AND PATH                             {T.C = O(V), S.C = O(1)}
+/*APPROACH-
+1. check indegree of each vertex by traversing adjacency list.
+2. if indegree in odd and exactly 2 vertex with odd indegree -> Eulerian Path/ Semi Eulerian
+3. if indegree is 0 -> Eulerain Circuit.
+*/
 class Solution {
 public:
 	int isEularCircuit(int V, vector<int>adj[]){
@@ -2445,7 +2450,7 @@ public:
 	    if(count == 0){                        //0 vertexes with odd indegrees (Eulerian circuit)
 	        return 2;
 	    }
-	    else if(count == 2){                   //2 vertexes with odd indegrees (Eulerian paht/semi Eulerian)
+	    else if(count == 2){                   //2 vertexes with odd indegrees (Eulerian path/semi Eulerian)
 	        return 1; 
 	    }else{
 	        return 0;
@@ -2464,8 +2469,12 @@ Your Output:
 
 
 //317. NUMBER OF TRIANGLES IN DIRECTED AND UNDIRECTED GRAPH                     {T.C = O(V^3), S.C = O(V^2)}
-vector<int> countTriangles(int v1, vector<vector<int>>& edgeListOfDirectedGraph, int v2,
-			vector<vector<int>>& edgeListOfUnDirectedGraph) {
+/*APPROACH - 
+1. create adjacency list by both edges.
+2. from adjacency list create adjacency matrix.
+3. 3 loop then check for directed(/3{1 triangle make 3 same triangle}) and undirected(/6{1 triangle make 6 same triangle}) graph
+*/
+vector<int> countTriangles(int v1, vector<vector<int>>& edgeListOfDirectedGraph, int v2, vector<vector<int>>& edgeListOfUnDirectedGraph) {
 	
 	//creating adjacency list of both directed and undirected
 	vector<vector<int>>adjDr(v1, vector<int>(v1, 0));
