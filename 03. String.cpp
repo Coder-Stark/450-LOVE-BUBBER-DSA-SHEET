@@ -170,6 +170,7 @@ Sample Output 1:
 
 
 //52. CHECK IF THE GIVEN STRING IS SHUFFLED SUBSTRING OF ANOTHER STRING               {T.C = O(N) , S.C = O(1)}
+//characters are different (distinct from same characters use in both string like in question 378(dp))
 int main(){                                                                  
     string s1, s2, res;
     cin>>s1>>s2>>res;
