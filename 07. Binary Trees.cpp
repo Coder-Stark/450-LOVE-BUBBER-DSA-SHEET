@@ -1659,12 +1659,11 @@ class Solution
        if(root == NULL){
            return NULL;
        }
-       
-       //NLR
        if(root->data == n1 || root->data == n2){
            return root;
        }
        
+       //LRN
        Node* leftAns = lca(root->left, n1, n2);
        Node* rightAns = lca(root->right, n1, n2);
        
