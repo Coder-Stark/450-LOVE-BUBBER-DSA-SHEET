@@ -1,9 +1,9 @@
 //GRAPH
 //MINIMUM DISTANCE FINDING ALGORITHM
 /*
-1. DIJKSTRA'S ALGO                  {not work for -ve weighted graph}
-2. BELLMANFORD ALGO                 {work for -ve weighted graph}
-3. FLOYD WARSHALL ALGO              {brute force algo}
+1. DIJKSTRA'S ALGO                  {not work for -ve weighted graph}  //shortest distance from source to destination
+2. BELLMANFORD ALGO                 {work for -ve weighted graph}      //shortest distance from source to destination
+3. FLOYD WARSHALL ALGO              {brute force algo}                 //shortest distance from each node to every node
 */
 //MINIMUM SPANNING TREE ALGORITHM
 /*
